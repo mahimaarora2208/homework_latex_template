@@ -1,0 +1,338 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{February 09, 2023}
+\newcommand{\hmwkClass}{ENPM809X: Data and Algorithms}
+\newcommand{\hmwkClassTime}{Section 0101}
+\newcommand{\hmwkAuthorName}{\textbf{Mahima Arora}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 4:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+\maketitle
+\pagebreak
+
+% BEGIN WRITING PROBLEM HERE
+\begin{homeworkProblem}
+\textbf{2.2(b-d)} Bubble Sort and related three parts(refer to HW1 for full questions). \\
+
+\solution \\
+
+\textbf{PART B}
+
+Loop invariant for loop in lines 2-4 is as follows: \\
+At the start of each iteration, the sub-array A[j....n] consists of elements originally in that sub-array before entering the loop but in a different order and the first element is the smallest among them.
+\begin{enumerate}
+    \item \textbf{Verify initialization}: Initially, array A[1] is the single original element and it is sorted.
+    \item \textbf{Verify iteration}: In each iteration, A[j] is compared with A[j-1] making A[j-1] the smallest in the sub-array. After the jth iteration, the largest j elements are moved to the end of the array making A.size() - i - 1 element sorted. 
+    \item \textbf{Verify termination}: This loop terminates when j = i + 1 and the sorted array is A[1...n] which is the entire input.
+\end{enumerate}
+
+\textbf{PART C}
+
+Loop invariant for loop in lines 1-4 is as follows: \\
+At the start of each iteration for the first for loop, the sub-array A[1....i-1] consists of elements that are smaller than elements in sub-array A[i...n] in sorted order(first i-1 numbers will be sorted after i iterations).
+\begin{enumerate}
+    \item \textbf{Verify initialization}: Initially, array A[1...i-1] is empty and hence, the smallest element of the sub-array.
+    \item \textbf{Verify iteration}: After execution of the inner loop, A[i] will be smallest of the sub-array A[i....n] and in the start of the outer loop, A[1....i-1] sub-array consists of elements smaller than elements of A[i....n] in sorted order.
+    \item \textbf{Verify termination}: This loop terminates when i = A.length - 1 and the sorted array is A[1...n] which is the entire input.
+\end{enumerate}
+
+\textbf{PART D} 
+The Worst-case running time of Bubble Sort is $\Theta(n^2)$ if the array is reversed. Insertion Sort has a running time that varies from $\Theta(n)$ to $\Theta(n^2)$. Comparing both, Insertion Sort is slightly better than bubble sort as insertion sort has fewer swaps as compared to bubble sort.
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+\textbf{2.3-4(a-c)} Recursive process for Insertion Sort including pseudocode, running time, and solving recurrence to find the complexity(refer to HW1 for full questions).
+
+\solution \\
+
+\part
+
+Pseudocode implementation of the recursive algorithm: \\
+\alg{Insertion-Sort-Recursion($Array,n$)}
+    \begin{algorithm}[]
+        \begin{algorithmic}
+            \Function{Insertion-Sort-Recursion}{$Array, n$}
+                \If{ $n \geq 1$}
+                    \State \Call{Insertion-Sort-Recursion}{$Array, n-1$}
+                    \State \Call{Substitute}{$Array, n$}
+                 \EndIf
+            \EndFunction
+            \Function{Substitute}{$Array, m$}
+                \State $key \gets Array[m]$
+                \State $idx \gets m-1$
+                \While{ $idx > 1 AND Array[idx]>key$}
+                    \State $Array[idx+1] \gets Array[idx]$
+                    \State $idx \gets idx - 1$
+                \EndWhile
+                \State $Array[idx+1] \gets Array[idx]$  
+            \EndFunction{}
+        \end{algorithmic}
+        \caption{Recursive Insertion Sort}
+    \end{algorithm}
+
+ \part
+ 
+ Recurrence for the running time of the recursive insertion sort: \\
+ 
+ \begin{equation}
+  T(n)=\begin{cases}
+    \Theta(1), & \text{if $n=1$}.\\
+    T(n-1) + \Theta(n), & \text{if $n > 1$}.
+  \end{cases}
+\end{equation}
+ 
+\part
+
+Solving the recurrence, time complexity comes out to be: $\Theta(n^2)$. Let $\Theta(n) = n$. Substituting this value in the equation above, we get \\
+
+   \[
+        \begin{split} 
+           T(n) = T(n-1) + n \\
+           T(n-1) = T(n-2) + n - 1 \\
+           T(n) = T(n-2) + 2n -1 \\
+           \vdots \\
+           T(n) = T(n-k) + kn - \dfrac{(k-1)k}{2}
+        \end{split}
+    \]
+    Setting k = n - 1,
+    \[
+        \begin{split} 
+           T(n) = T(n-n+1) + (n-1)n -\dfrac{(n-1-1)(n-1)}{2} \\
+           T(n) = T(1) + (n-1)n -\dfrac{(n-2)(n-1)}{2} \\
+           T(n) = T(1) + \dfrac{(n+2)(n-1)}{2} \\
+           T(n) = \mathcal{O}(n^2)
+        \end{split}
+    \]
+
+ 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+\textbf{4.1-5} Use the following ideas to develop a non-recursive, linear-time algorithm for the maximum sub-array problem: Start at the left end of the array, and progress toward the right, keeping track of the maximum sub-array seen so far. Knowing a maximum sub-array of A[1....j], extend the answer to find a maximum sub-array ending at index j+1 by using the following observation: A maximum sub-array of A[1.. j+1] is either a maximum sub-array of A[1.. j] or a sub-array A[i.. j+1], for some $1 \leq i \leq j + 1$. Determine a maximum sub-array of the form A[i.. j+1] in constant time based on knowing a maximum sub-array ending at index j.
+\\
+
+\solution \\
+We can use Kadane's Algorithm to get a linear running time. The algorithm is as follows: \\
+
+\alg{find-max-subarray($A$)}
+    \begin{algorithm}[]
+        \begin{algorithmic}[1]
+            \Function{find-max-subarray}{$A$}
+                \State $maxSum \gets nums[0]$
+                \State $i \gets 1$
+                \While {$i < A.length$}
+                \State $nums[i] \gets max(nums[i], nums[i]+nums[i-1])$
+                \State $maxSum \gets max(nums[i], maxSum)$
+                \EndWhile \\
+                \Return $\textit{maxSum}$
+            \EndFunction{}
+        \end{algorithmic}
+        \caption{Kadane's Algorithm for Linear Time}
+    \end{algorithm}
+
+This algorithm returns the max sub-array for a given array in Linear time. The max sum is stored in the variable called maxSum and after each iteration, it updates the [i-1] value with the latest sum. It keeps comparing this [i-1] value with the maxSum and stores the greater value in the same variable, hence, always keeping track of max-subarray in A[1.....j].
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+\textbf{4.5-1} Use the master method to give tight asymptotic bounds for the following recurrences.
+\textbf{Solution} \\
+
+\part
+
+\(T(n) = 2T(n/4)+1\) 
+
+ \textbf{The answer is $\Theta(\sqrt{n})$.} \\
+
+Since $f(n) = 1$ and $T(n) = n^{\log_b a}$ where a = 2 and b = 4. Therefore,
+    \[
+        \begin{split} 
+           f(n) = n^{\log_4 2-1/2} = 1 \\
+           T(n) = n^{\log_4 2} = \sqrt{n}
+        \end{split}
+    \]
+    Thus Case I of the Master Method applies where T(n) is more dominant than f(n).
+    \\
+
+\part
+
+\(T(n) = 2T(n/4)+ \sqrt{n}\)
+
+ \textbf{The answer is $\Theta(\sqrt{n}\log n)$.} \\
+
+Since $f(n) = \sqrt{n}$ and $T(n) = n^{\log_b a}$ where a = 2 and b = 4. Therefore,
+    \[
+        \begin{split}
+           f(n) = n^{\log_4 2} = \sqrt{n} \\
+           T(n) = n^{\log_4 2} = \sqrt{n}
+        \end{split}
+    \]
+ Thus Case II of the Master Method applies where T(n) equals f(n). 
+    \\
+
+\part
+
+\(T(n) = 2T(n/4)+n\)
+
+\textbf{The answer is $\Theta(n)$.} \\
+
+Since $f(n) = n$ and $T(n) = n^{\log_b a}$ where a = 2 and b = 4. Therefore,
+    \[
+        \begin{split}
+           f(n) = n^{\log_4 2 +1/2} = n \\
+           T(n) = n^{\log_4 2} = \sqrt{n}
+        \end{split}
+    \]
+ Thus Case III of the Master Method applies where f(n) is more dominant than T(n). 
+    \\
+  
+\part
+
+\(T(n) = 2T(n/4)+n^2\)
+
+\textbf{The answer is $\Theta(n^2)$.} \\
+
+Since $f(n) = n^2$ and $T(n) = n^{\log_b a}$ where a = 2 and b = 4. Therefore,
+    \[
+        \begin{split}
+           f(n) = n^{\log_4 2 +3/2} = n^2 \\
+           T(n) = n^{\log_4 2} = \sqrt{n}
+        \end{split}
+    \]
+ Thus Case III of the Master Method applies where f(n) is more dominant than T(n). 
+    \\
+
+\end{homeworkProblem}
+
+\end{document}
